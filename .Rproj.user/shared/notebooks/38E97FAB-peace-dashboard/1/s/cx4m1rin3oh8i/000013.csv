@@ -1,0 +1,445 @@
+"0","shinyApp(ui = ui, server = server)
+"
+"2","
+Listening on http://127.0.0.1:6448
+"
+"2","Warning: Error in filter: [38;5;232mProblem while computing `..1 = Country == input$country_selector_1`.
+[31mx[38;5;232m Input `..1` must be of size 1956 or 1, not size 0.[39m"
+"2","  117: [37m<Anonymous>[39m
+"
+"2",""
+"2","  116: [37msignalCondition[39m
+"
+"2",""
+"2","  115: [37msignal_abort[39m
+"
+"2",""
+"2","  114: [37mabort[39m
+"
+"2",""
+"2","  113: [37m<Anonymous>[39m
+"
+"2",""
+"2","  112: [37msignalCondition[39m
+"
+"2",""
+"2","  111: [37msignal_abort[39m
+"
+"2",""
+"2","  110: [37mabort[39m
+"
+"2",""
+"2","  109: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  108: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  106: [37mfilter_eval[39m
+"
+"2",""
+"2","  105: [37mfilter_rows[39m
+"
+"2",""
+"2","  104: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  103: [37mfilter[39m
+"
+"2",""
+"2","  102: [37mselect[39m
+"
+"2",""
+"2","  101: [37marrange[39m
+"
+"2",""
+"2","  100: [37m%>%[39m
+"
+"2",""
+"2","   99: [34m[1mrenderTable [#26][22m[39m
+"
+"2",""
+"2","   98: [37mfunc[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$peace_summary[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"
+"2","  186: [37m<Anonymous>[39m
+"
+"2",""
+"2","  185: [37msignalCondition[39m
+"
+"2",""
+"2","  184: [37msignal_abort[39m
+"
+"2",""
+"2","  183: [37mabort[39m
+"
+"2",""
+"2","  182: [37m<Anonymous>[39m
+"
+"2",""
+"2","  181: [37msignalCondition[39m
+"
+"2",""
+"2","  180: [37msignal_abort[39m
+"
+"2",""
+"2","  179: [37mabort[39m
+"
+"2",""
+"2","  178: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  177: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  175: [37mfilter_eval[39m
+"
+"2",""
+"2","  174: [37mfilter_rows[39m
+"
+"2",""
+"2","  173: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  172: [37mfilter[39m
+"
+"2",""
+"2","  171: [37m%>%[39m
+"
+"2",""
+"2","  170: [34m[1mrenderPlot [#32][22m[39m
+"
+"2",""
+"2","  168: [37mfunc[39m
+"
+"2",""
+"2","  128: [37mdrawPlot[39m
+"
+"2",""
+"2","  114: [37m<reactive:plotObj>[39m
+"
+"2",""
+"2","   98: [37mdrawReactive[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$annual_rank_diff[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"
+"2","  186: [37m<Anonymous>[39m
+"
+"2",""
+"2","  185: [37msignalCondition[39m
+"
+"2",""
+"2","  184: [37msignal_abort[39m
+"
+"2",""
+"2","  183: [37mabort[39m
+"
+"2",""
+"2","  182: [37m<Anonymous>[39m
+"
+"2",""
+"2","  181: [37msignalCondition[39m
+"
+"2",""
+"2","  180: [37msignal_abort[39m
+"
+"2",""
+"2","  179: [37mabort[39m
+"
+"2",""
+"2","  178: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  177: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  175: [37mfilter_eval[39m
+"
+"2",""
+"2","  174: [37mfilter_rows[39m
+"
+"2",""
+"2","  173: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  172: [37mfilter[39m
+"
+"2",""
+"2","  171: [37m%>%[39m
+"
+"2",""
+"2","  170: [34m[1mrenderPlot [#53][22m[39m
+"
+"2",""
+"2","  168: [37mfunc[39m
+"
+"2",""
+"2","  128: [37mdrawPlot[39m
+"
+"2",""
+"2","  114: [37m<reactive:plotObj>[39m
+"
+"2",""
+"2","   98: [37mdrawReactive[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$annual_score_diff[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"
+"2","  118: [37m<Anonymous>[39m
+"
+"2",""
+"2","  117: [37msignalCondition[39m
+"
+"2",""
+"2","  116: [37msignal_abort[39m
+"
+"2",""
+"2","  115: [37mabort[39m
+"
+"2",""
+"2","  114: [37m<Anonymous>[39m
+"
+"2",""
+"2","  113: [37msignalCondition[39m
+"
+"2",""
+"2","  112: [37msignal_abort[39m
+"
+"2",""
+"2","  111: [37mabort[39m
+"
+"2",""
+"2","  110: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  109: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  107: [37mfilter_eval[39m
+"
+"2",""
+"2","  106: [37mfilter_rows[39m
+"
+"2",""
+"2","  105: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  104: [37mfilter[39m
+"
+"2",""
+"2","  103: [37mfilter[39m
+"
+"2",""
+"2","  102: [37mselect[39m
+"
+"2",""
+"2","  101: [37m%>%[39m
+"
+"2",""
+"2","  100: [34m[1mvbox_fun [#100][22m[39m
+"
+"2",""
+"2","   99: [37mrenderUI[39m
+"
+"2",""
+"2","   98: [37mfunc[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$country_1_rank[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"
+"2","  118: [37m<Anonymous>[39m
+"
+"2",""
+"2","  117: [37msignalCondition[39m
+"
+"2",""
+"2","  116: [37msignal_abort[39m
+"
+"2",""
+"2","  115: [37mabort[39m
+"
+"2",""
+"2","  114: [37m<Anonymous>[39m
+"
+"2",""
+"2","  113: [37msignalCondition[39m
+"
+"2",""
+"2","  112: [37msignal_abort[39m
+"
+"2",""
+"2","  111: [37mabort[39m
+"
+"2",""
+"2","  110: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  109: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  107: [37mfilter_eval[39m
+"
+"2",""
+"2","  106: [37mfilter_rows[39m
+"
+"2",""
+"2","  105: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  104: [37mfilter[39m
+"
+"2",""
+"2","  103: [37mfilter[39m
+"
+"2",""
+"2","  102: [37mselect[39m
+"
+"2",""
+"2","  101: [37m%>%[39m
+"
+"2",""
+"2","  100: [34m[1mvbox_fun [#115][22m[39m
+"
+"2",""
+"2","   99: [37mrenderUI[39m
+"
+"2",""
+"2","   98: [37mfunc[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$country_2_rank[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"
+"2","  117: [37m<Anonymous>[39m
+"
+"2",""
+"2","  116: [37msignalCondition[39m
+"
+"2",""
+"2","  115: [37msignal_abort[39m
+"
+"2",""
+"2","  114: [37mabort[39m
+"
+"2",""
+"2","  113: [37m<Anonymous>[39m
+"
+"2",""
+"2","  112: [37msignalCondition[39m
+"
+"2",""
+"2","  111: [37msignal_abort[39m
+"
+"2",""
+"2","  110: [37mabort[39m
+"
+"2",""
+"2","  109: [37mdplyr_internal_error[39m
+"
+"2",""
+"2","  108: [37mmask$eval_all_filter[39m
+"
+"2",""
+"2","  106: [37mfilter_eval[39m
+"
+"2",""
+"2","  105: [37mfilter_rows[39m
+"
+"2",""
+"2","  104: [37mfilter.data.frame[39m
+"
+"2",""
+"2","  103: [37mfilter[39m
+"
+"2",""
+"2","  102: [37mselect[39m
+"
+"2",""
+"2","  101: [37marrange[39m
+"
+"2",""
+"2","  100: [37m%>%[39m
+"
+"2",""
+"2","   99: [34m[1mrenderTable [#129][22m[39m
+"
+"2",""
+"2","   98: [37mfunc[39m
+"
+"2",""
+"2","   85: [37mrenderFunc[39m
+"
+"2",""
+"2","   84: [37moutput$global_rankings[39m
+"
+"2",""
+"2","    3: [37mrunApp[39m
+"
+"2",""
+"2","    2: [37mprint.shiny.appobj[39m
+"
+"2",""
+"2","    1: [37m<Anonymous>[39m
+"

@@ -1,0 +1,224 @@
+---
+title: "ShinyDashboard for Peace Data"
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r}
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(shiny)
+library(shinydashboard)
+```
+
+Load cleaned data. Sourced from Wikipedia. 
+```{r}
+peacedata<- read.csv("peacedata_cleaned.csv")
+```
+
+Select Columns to Query Peace Score
+```{r}
+peacescore <- peacedata %>% select(1,3,5,7,9,11,13,15,17,19,21,23,25)
+
+oldnames <- colnames(peacescore)
+newnames <- c("Country","2019-2021","2018","2017","2016","2015","2014","2013","2012","2011","2010","2009","2008")
+
+peacescore <- peacescore %>% rename_at(vars(oldnames),~(newnames))
+peacescore <- gather(peacescore, key= "Year", value = "Score",2:13)
+
+
+peacerank <- peacedata %>% select(1,2,4,6,8,10,12,14,16,18,20,22,24)
+peacerank <- gather(peacerank, key= "Year", value = "Rank",2:13)
+
+peacerank$Year <- gsub("[^0-9.-]", "",peacerank$Year)
+
+peacedf <- cbind(peacerank,peacescore[3,drop=FALSE])
+```
+
+
+Generated Simple Dashboard to Visualize National Peace Ranks. Random Samples for Plot since there were too many Points. Now that I think about it, maybe I should have made the Input the country instead of the Year.
+```{r}
+ui <- dashboardPage(
+  dashboardHeader(title = "Global Peace Index"),
+  dashboardSidebar(
+    sidebarMenu(
+    menuItem("Yearly Trends",
+             tabName = "year_trend_tab",
+             icon = icon("dashboard")),
+    menuItem("National Ranking",
+             tabName = "ranking_tab",
+             icon = icon("dashboard")),
+    menuItem("Heat Map of Peace",
+             tabName = "heatmap_tab",
+             icon = icon("dashboard"))
+          )
+   ),
+  
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "year_trend_tab",
+              box(plotOutput("annual_rank_diff")),
+              box(plotOutput("annual_score_diff")),
+              box(tableOutput("peace_summary")),
+              box(uiOutput("country_selector"))
+              ),
+      
+    tabItem(tabName = "ranking_tab",
+      fluidRow(box(uiOutput("country_1")), box(uiOutput("country_2"))),
+      fluidRow(box(uiOutput("country_1_rank")), box(uiOutput("country_2_rank"))),
+      box(uiOutput("year_selector")), box(tableOutput("global_rankings"))
+          ),
+    tabItem(tabName = "heatmap_tab",
+            fluidRow(box(plotOutput("peacescore_heatmap"),width=12)))
+    )
+))
+
+server <- function(input,output){
+  output$country_selector <- renderUI({
+    country_selector_df <- peacedf%>%
+      select(Country)%>%
+      distinct()%>%
+      arrange(Country)
+    
+       selectInput(inputId = "country_selector_1",
+                    label = "Country",
+                    choices = country_selector_df)
+    
+  })
+  output$year_selector <- renderUI({
+    year_selector_df <- peacedf%>%
+      select(Year)%>%
+      distinct()%>%
+      arrange(Year)
+    
+       selectInput(inputId = "year_selector_1",
+                    label = "Year",
+                    choices = year_selector_df)
+    
+  })
+  
+  output$peace_summary <- renderTable({
+       peacedf%>%
+       filter(Country == input$country_selector_1)%>%
+       select(Year,Rank,Score)%>%
+       arrange(Year, Rank)})
+       
+  output$annual_rank_diff <- renderPlot({
+        annual_df <- peacedf %>% 
+            filter(Country == input$country_selector_1)
+        
+        top_5_rankers <- annual_df %>% 
+            group_by(Country) %>% 
+            arrange(desc(Rank)) %>% 
+            slice(1) %>% 
+            ungroup() %>% 
+            top_n(Rank, n = 5) %>% 
+            select(Country)
+        
+         ggplot(data = annual_df, aes(x = Year, y = Rank)) + 
+            geom_point() + 
+            geom_point(data = annual_df %>% 
+            filter(Country %in% top_5_rankers$Country),
+            aes(x = Year, y = Rank, color = Country)) +
+            theme(legend.position = "top")+
+            ggtitle("Peace Rank")+
+            theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))})
+  
+    output$annual_score_diff <- renderPlot({
+        annual_score_df <- peacedf %>% 
+            filter(Country == input$country_selector_1)
+        
+        top_5_rankers <- annual_score_df %>% 
+            group_by(Country) %>% 
+            arrange(desc(Score)) %>% 
+            slice(1) %>% 
+            ungroup() %>% 
+            top_n(Score, n = 5) %>% 
+            select(Country)
+        
+         ggplot(data = annual_score_df, aes(x = Year, y = Score)) + 
+            geom_point() + 
+            geom_point(data = annual_score_df %>% 
+            filter(Country %in% top_5_rankers$Country),
+            aes(x = Year, y = Score, color = Country)) +
+            theme(legend.position = "top")+
+            ggtitle("Peace Score")+
+            theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))})
+  
+          
+          output$country_1 <- renderUI({
+        
+          country_1_df <- peacedf %>% 
+            select(Country) %>% 
+            distinct() %>% 
+            arrange(Country)
+        
+        
+        selectInput(inputId = "country_1_pick",
+                    label = "Country",
+                    choices = country_1_df)
+    })
+       output$country_2 <- renderUI({
+        
+          country_2_df <- peacedf %>% 
+            select(Country) %>% 
+            distinct() %>% 
+            arrange(Country)
+        
+        
+        selectInput(inputId = "country_2_pick",
+                    label = "Country",
+                    choices = country_2_df)})
+    
+        output$country_1_rank <- renderValueBox({
+        
+        country_1_year_rank <- peacedf%>%
+          filter(Country == input$country_1_pick)%>%
+          filter(Year == input$year_selector_1)%>%
+          select(Rank)
+        
+        valueBox(
+            value = paste(country_1_year_rank, " ", sep = ""),
+            subtitle = paste(input$country_1_pick, "Rank", sep = " "),
+            color = "blue",
+            icon = icon("hand-rock")
+        )
+
+    })
+        output$country_2_rank <- renderValueBox({
+        
+        country_2_year_rank <- peacedf%>%
+          filter(Country == input$country_2_pick)%>%
+          filter(Year == input$year_selector_1)%>%
+          select(Rank)
+        
+        valueBox(
+            value = paste(country_2_year_rank, " ", sep = ""),
+            subtitle = paste(input$country_1_pick, "Rank", sep = " "),
+            color = "blue",
+            icon = icon("hand-rock")
+        )
+
+    })
+        output$global_rankings <- renderTable({
+       peacedf%>%
+       filter(Year == input$year_selector_1)%>%
+       select(Country,Rank,Score)%>%
+       arrange(Rank)})
+        
+        output$peacescore_heatmap <- renderPlot({
+      ggplot(peacedf,aes(x= Year, y= Score)) + 
+      geom_bin2d()+
+      scale_fill_gradient(high = 'black', low = 'pink')+
+      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+      labs(title = 'Peace Score Heat Map')+
+      theme(plot.title = element_text(hjust = 0.5))
+})
+    
+  }
+shinyApp(ui = ui, server = server)
+
+```
+
